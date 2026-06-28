@@ -1,0 +1,1 @@
+g++ main.cpp src.cpp -o game.exe -lgdi32 -luser32 -lkernel32

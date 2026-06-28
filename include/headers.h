@@ -1,9 +1,11 @@
+#pragma once
+extern HDC hdc;
 class Point {
-    private:
+    protected:
         int x;
         int y;
         bool visible;
-    protected:
+    public:
         Point(int InitX, int InitY);
         ~Point();
         int GetX();
@@ -18,7 +20,7 @@ class Point {
 };
 
 class NLO : public Point {
-    protected:
+    public:
         NLO(int InitX, int InitY);
         ~NLO();
         void Show() override;
@@ -29,7 +31,7 @@ class NLO : public Point {
 };
 
 class YellowNLO : public NLO {
-    protected:
+    public:
         YellowNLO(int InitX, int InitY);
         ~YellowNLO();
         void DrawCabin() override;
@@ -38,7 +40,7 @@ class YellowNLO : public NLO {
 };
 
 class GreenNLO : public NLO {
-    protected:
+    public:
         GreenNLO(int InitX, int InitwY);
         ~GreenNLO();
         void DrawCabin() override;
@@ -46,10 +48,10 @@ class GreenNLO : public NLO {
         void DrawWindow() override;
 };
 
-class ABC_Object : Point {
-    private:
-        bool active;
+class ABC_Object : public Point {
     protected:
+        bool active;
+    public:
         ABC_Object();
         ~ABC_Object();
         bool isActive();
@@ -57,58 +59,78 @@ class ABC_Object : Point {
         void Disactive();
 };
 
-class Rocket : ABC_Object {
-    protected:
+class Rocket : public ABC_Object {
+    public:
         Rocket();
         ~Rocket();
-        void Show() override;
-        void Hide() override;
 };
 
-class Charge : Rocket {
-    protected:
+class Charge : public Rocket {
+    public:
         Charge();
         ~Charge();
+        virtual void Draw();
         void Show() override;
         void Hide() override;
 };
 
-class Meteor : Charge {
-    protected:
+class Meteor : public Charge {
+    public:
         Meteor();
         ~Meteor();
-        void Show() override;
-        void Hide() override;
+        void Draw() override;
 };
 
-class DarkHole : Meteor {
-    protected:
+class DarkHole : public Meteor {
+    public:
         DarkHole();
         ~DarkHole();
-        void Show() override;
-        void Hide() override;
+        void Draw() override;
 };
 
-class Heart : ABC_Object {
-    protected:
+class Heart : public ABC_Object {
+    public:
         Heart();
         ~Heart();
+        virtual void Draw();
         void Show() override;
         void Hide() override;
 };
 
-class Health : Heart {
-    protected:
+class Health : public Heart {
+    public:
         Health();
         ~Health();
-        void Show() override;
-        void Hide() override;
+        void Draw() override;
 };
 
-class Shield : Health {
-    protected:
+class Shield : public Health {
+    public:
         Shield();
         ~Shield();
-        void Show() override;
-        void Hide() override;
+        void Draw() override;
+};
+
+class Window : public Point {
+    protected:
+        int size;
+    public:
+        Window();
+        ~Window();
+};
+
+class LevelsWindow : public Window {
+
+};
+
+class FirstLevelWindow : public LevelsWindow {
+
+};
+
+class SecondLevelWindow : public FirstLevelWindow {
+
+};
+
+class ThirdLevelWindow : public SecondLevelWindow {
+
 };
