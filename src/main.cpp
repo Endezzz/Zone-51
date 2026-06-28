@@ -23,6 +23,12 @@ int main() {
     
     Point point(100, 100);
     point.Show(); 
+    NLO nlo(500, 500);
+    nlo.Show();
+    YellowNLO nlo1(300, 300);
+    nlo1.Show();
+    RedNLO nlo2(600, 300);
+    nlo2.Show();
     while(!KEY_DOWN(VK_ESCAPE)) {}
     
     ReleaseDC(hwnd, hdc);

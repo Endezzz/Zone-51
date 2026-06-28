@@ -20,6 +20,9 @@ class Point {
 };
 
 class NLO : public Point {
+    protected:
+        int height = 90;
+        int width = 180;
     public:
         NLO(int InitX, int InitY);
         ~NLO();
@@ -34,15 +37,15 @@ class YellowNLO : public NLO {
     public:
         YellowNLO(int InitX, int InitY);
         ~YellowNLO();
-        void DrawCabin() override;
-        void DrawAlien() override;
         void DrawWindow() override;
+        void DrawAlien() override;
+        void DrawCabin() override;
 };
 
-class GreenNLO : public NLO {
+class RedNLO : public NLO {
     public:
-        GreenNLO(int InitX, int InitwY);
-        ~GreenNLO();
+        RedNLO(int InitX, int InitwY);
+        ~RedNLO();
         void DrawCabin() override;
         void DrawAlien() override;
         void DrawWindow() override;
