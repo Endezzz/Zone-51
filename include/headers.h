@@ -26,6 +26,8 @@ class NLO : public Point {
     public:
         NLO(int InitX, int InitY);
         ~NLO();
+        int GetHeight();
+        int GetWidth();
         void Show() override;
         void Hide() override;
         virtual void DrawCabin();
@@ -117,11 +119,14 @@ class Shield : public Health {
 
 class Window : public Point {
     protected:
+        int state = 1;
         int height = 700;
         int width = 1200;
     public:
         Window(int InitX, int InitY);
         ~Window();
+        int GetState();
+        void SetState(int NewState);
 };
 
 class LevelsWindow : public Window {

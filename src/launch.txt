@@ -1,1 +1,1 @@
-g++ main.cpp src.cpp -o game.exe -lgdi32 -luser32 -lkernel32
+g++ main.cpp src.cpp game_logic.cpp -o game.exe -lgdi32 -luser32 -lkernel32

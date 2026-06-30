@@ -58,6 +58,14 @@ NLO :: NLO(int InitX, int InitY) : Point(InitX, InitY) {}
 
 NLO :: ~NLO() {}
 
+int NLO :: GetHeight() {
+    return height;
+}
+
+int NLO :: GetWidth() {
+    return width;
+}
+
 void NLO :: Show() {
     DrawWindow();
     DrawCabin();
@@ -187,6 +195,8 @@ void NLO :: DrawAlien() {
 
     DeleteObject(greenBrush);
     DeleteObject(greenPen);
+    DeleteObject(whiteBrush);
+    DeleteObject(whitePen);
 }
 
 
@@ -411,6 +421,14 @@ Window :: Window(int InitX, int InitY) : Point(InitX, InitY) {}
 
 Window :: ~Window() {}
 
+int Window :: GetState() {
+    return state;
+}
+
+void Window :: SetState(int NewState) {
+    state = NewState;
+}
+
 
 //---------------[ L E V E L S     W I N D O W ]----------------//
 LevelsWindow :: LevelsWindow(int InitX, int InitY) : Window(InitX, InitY) {}
@@ -469,48 +487,53 @@ void LevelsWindow :: Show() {
     DeleteObject(hFont);
 
     SelectObject(hdc, whitePen);
+    if(GetState() > 0) {
+        x1 = 600;
+        y1 = 550;
+        x2 = 625;
+        y2 = 700;
 
-    x1 = 600;
-    y1 = 550;
-    x2 = 625;
-    y2 = 700;
+        Rectangle(hdc, x1, y1, x2, y2);
+    }
 
-    Rectangle(hdc, x1, y1, x2, y2);
+    if(GetState() > 1) {
+        x1 = 900;
+        y1 = 550;
+        x2 = 925;
+        y2 = 700;
 
-    x1 = 900;
-    y1 = 550;
-    x2 = 925;
-    y2 = 700;
+        Rectangle(hdc, x1, y1, x2, y2);
 
-    Rectangle(hdc, x1, y1, x2, y2);
+        x1 = 975;
+        y1 = 550;
+        x2 = 1000;
+        y2 = 700;
 
-    x1 = 975;
-    y1 = 550;
-    x2 = 1000;
-    y2 = 700;
+        Rectangle(hdc, x1, y1, x2, y2);
+    }
 
-    Rectangle(hdc, x1, y1, x2, y2);
+    if(GetState() > 2) {
+        x1 = 1225;
+        y1 = 550;
+        x2 = 1250;
+        y2 = 700;
 
-    x1 = 1225;
-    y1 = 550;
-    x2 = 1250;
-    y2 = 700;
+        Rectangle(hdc, x1, y1, x2, y2);
 
-    Rectangle(hdc, x1, y1, x2, y2);
+        x1 = 1300;
+        y1 = 550;
+        x2 = 1325;
+        y2 = 700;
 
-    x1 = 1300;
-    y1 = 550;
-    x2 = 1325;
-    y2 = 700;
+        Rectangle(hdc, x1, y1, x2, y2);
 
-    Rectangle(hdc, x1, y1, x2, y2);
+        x1 = 1375;
+        y1 = 550;
+        x2 = 1400;
+        y2 = 700;
 
-    x1 = 1375;
-    y1 = 550;
-    x2 = 1400;
-    y2 = 700;
-
-    Rectangle(hdc, x1, y1, x2, y2);
+        Rectangle(hdc, x1, y1, x2, y2);
+    }
 
     DeleteObject(background);
     DeleteObject(circuit);

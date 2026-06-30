@@ -1,6 +1,8 @@
 #include <windows.h>
 #include <iostream>
 #include "../include/headers.h"
+#include "../include/game_logic.h"
+
 
 using namespace std;
 
@@ -24,11 +26,11 @@ int main() {
         return 2;
     }
     
-    ThirdLevelWindow window1(950,600);
-    window1.Show();
-    
-    while(!KEY_DOWN(VK_ESCAPE)) {}
-    
+    LevelsWindow window(950,600);
+    window.Show();
+    NLO nlo1(950, 600);
+    NLO * nlo = &nlo1;
+    levels(window, nlo);
     ReleaseDC(hwnd, hdc);
     return 0;
 }
