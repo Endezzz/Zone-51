@@ -15,20 +15,18 @@ int main() {
         return 1;
     }
     
+    ShowWindow(hwnd, SW_MAXIMIZE);
+    Sleep(200);
+
     hdc = GetWindowDC(hwnd);
     if(!hdc) {
         cout << "Handle Device Context NOT FOUND!\n";
         return 2;
     }
     
-    Point point(100, 100);
-    point.Show(); 
-    NLO nlo(500, 500);
-    nlo.Show();
-    YellowNLO nlo1(300, 300);
-    nlo1.Show();
-    RedNLO nlo2(600, 300);
-    nlo2.Show();
+    ThirdLevelWindow window1(950,600);
+    window1.Show();
+    
     while(!KEY_DOWN(VK_ESCAPE)) {}
     
     ReleaseDC(hwnd, hdc);

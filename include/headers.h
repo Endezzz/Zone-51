@@ -66,15 +66,16 @@ class Rocket : public ABC_Object {
     public:
         Rocket();
         ~Rocket();
+        void Show() override;
+        void Hide() override;
+        virtual void Draw();
 };
 
 class Charge : public Rocket {
     public:
         Charge();
         ~Charge();
-        virtual void Draw();
-        void Show() override;
-        void Hide() override;
+        void Draw() override;
 };
 
 class Meteor : public Charge {
@@ -116,24 +117,41 @@ class Shield : public Health {
 
 class Window : public Point {
     protected:
-        int size;
+        int height = 700;
+        int width = 1200;
     public:
-        Window();
+        Window(int InitX, int InitY);
         ~Window();
 };
 
 class LevelsWindow : public Window {
-
+    public:
+        LevelsWindow(int InitX, int InitY);
+        ~LevelsWindow();
+        void Show() override;
+        void Hide() override;
 };
 
 class FirstLevelWindow : public LevelsWindow {
-
+    public:
+        FirstLevelWindow(int InitX, int InitY);
+        ~FirstLevelWindow();
+        void Show() override;
+        void Hide() override;
 };
 
 class SecondLevelWindow : public FirstLevelWindow {
-
+    public:
+        SecondLevelWindow(int InitX, int InitY);
+        ~SecondLevelWindow();
+        void Show() override;
+        void Hide() override;
 };
 
 class ThirdLevelWindow : public SecondLevelWindow {
-
+    public:
+        ThirdLevelWindow(int InitX, int InitY);
+        ~ThirdLevelWindow();
+        void Show() override;
+        void Hide() override;
 };
