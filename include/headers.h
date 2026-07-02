@@ -57,46 +57,54 @@ class ABC_Object : public Point {
     protected:
         bool active;
     public:
-        ABC_Object();
+        ABC_Object(int InitX, int InitY);
         ~ABC_Object();
         bool isActive();
-        void Active();
-        void Disactive();
 };
 
 class Rocket : public ABC_Object {
+    protected:
+        int derection;
     public:
-        Rocket();
+        Rocket(int InitX, int InitY);
         ~Rocket();
+        int GetDerection();
+        void SetDerection(int NewDerection);
         void Show() override;
         void Hide() override;
-        virtual void Draw();
 };
 
 class Charge : public Rocket {
+    protected:
+        int radius;
     public:
-        Charge();
+        Charge(int InitX, int InitY);
         ~Charge();
-        void Draw() override;
+        int GetRadius();
+        void SetRadius(int NewRadius);
+        void Show() override;
+        void Hide() override;
 };
 
 class Meteor : public Charge {
     public:
-        Meteor();
+        Meteor(int InitX, int InitY);
         ~Meteor();
-        void Draw() override;
+        void Show() override;
+        void Hide() override;
 };
 
 class DarkHole : public Meteor {
     public:
-        DarkHole();
+        DarkHole(int InitX, int InitY);
         ~DarkHole();
-        void Draw() override;
+        void Show() override;
+        void Hide() override;
 };
 
 class Heart : public ABC_Object {
     public:
-        Heart();
+        Heart(int InitX, int InitY);
         ~Heart();
         virtual void Draw();
         void Show() override;
@@ -105,16 +113,18 @@ class Heart : public ABC_Object {
 
 class Health : public Heart {
     public:
-        Health();
+        Health(int InitX, int InitY);
         ~Health();
-        void Draw() override;
+        void Show() override;
+        void Hide() override;
 };
 
 class Shield : public Health {
     public:
-        Shield();
+        Shield(int InitX, int InitY);
         ~Shield();
-        void Draw() override;
+        void Show() override;
+        void Hide() override;
 };
 
 class Window : public Point {
