@@ -64,12 +64,12 @@ class ABC_Object : public Point {
 
 class Rocket : public ABC_Object {
     protected:
-        int derection;
+        int direction;
     public:
         Rocket(int InitX, int InitY);
         ~Rocket();
-        int GetDerection();
-        void SetDerection(int NewDerection);
+        int GetDirection();
+        void SetDirection(int NewDirection);
         void Show() override;
         void Hide() override;
 };

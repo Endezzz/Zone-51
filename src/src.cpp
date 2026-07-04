@@ -833,12 +833,12 @@ Rocket :: Rocket(int InitX, int InitY) : ABC_Object(InitX, InitY) {}
 
 Rocket :: ~Rocket() {}
 
-int Rocket :: GetDerection() {
-    return derection;
+int Rocket :: GetDirection() {
+    return direction;
 }
 
-void Rocket :: SetDerection(int NewDerection) {
-    derection = NewDerection;
+void Rocket :: SetDirection(int NewDirection) {
+    direction = NewDirection;
 }
 
 void Rocket :: Show() {
@@ -855,7 +855,7 @@ void Rocket :: Show() {
     POINT polyFire[7];
     BYTE polytypeFire[7];
 
-    if(derection == 0) {
+    if(direction == 0) {
         Rectangle(hdc, x-20, y-10, x+20, y+10);
 
         BeginPath(hdc);
@@ -900,7 +900,7 @@ void Rocket :: Show() {
         FillPath(hdc);
     }
 
-    if(derection == 1) {
+    if(direction == 1) {
         Rectangle(hdc, x-20, y-10, x+20, y+10);
 
         BeginPath(hdc);
@@ -963,7 +963,7 @@ void Rocket :: Hide() {
     POINT polyFire[7];
     BYTE polytypeFire[7];
 
-    if(derection == 0) {
+    if(direction == 0) {
         Rectangle(hdc, x-20, y-10, x+20, y+10);
 
         BeginPath(hdc);
@@ -1007,7 +1007,7 @@ void Rocket :: Hide() {
         FillPath(hdc);
     }
 
-    if(derection == 1) {
+    if(direction == 1) {
         Rectangle(hdc, x-20, y-10, x+20, y+10);
 
         BeginPath(hdc);
@@ -1153,7 +1153,7 @@ void Meteor :: Show() {
     POINT poly[4];
     BYTE polytype[4] = { PT_MOVETO, PT_LINETO, PT_LINETO, PT_LINETO };
     
-    if(GetDerection() == 0) {
+    if(GetDirection() == 0) {
         int flameWidth = 6;
         int flameHeight = 6;
 
@@ -1180,7 +1180,7 @@ void Meteor :: Show() {
         DrawFlame(startX + diagonalOffsetX*2, startY + diagonalOffsetY*2-5); 
     }
 
-    if(GetDerection() == 1) {
+    if(GetDirection() == 1) {
         int flameWidth = 6;
         int flameHeight = 6;
 
@@ -1254,7 +1254,7 @@ void Meteor :: Hide() {
     POINT poly[4];
     BYTE polytype[4] = { PT_MOVETO, PT_LINETO, PT_LINETO, PT_LINETO };
     
-    if(GetDerection() == 0) {
+    if(GetDirection() == 0) {
         int flameWidth = 6;
         int flameHeight = 6;
 
@@ -1281,7 +1281,7 @@ void Meteor :: Hide() {
         DrawFlame(startX + diagonalOffsetX*2, startY + diagonalOffsetY*2-5); 
     }
 
-    if(GetDerection() == 1) {
+    if(GetDirection() == 1) {
         int flameWidth = 6;
         int flameHeight = 6;
 
