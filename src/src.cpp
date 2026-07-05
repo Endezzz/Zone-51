@@ -1314,3 +1314,229 @@ void Meteor :: Hide() {
 
 
 //-------------------[ D A R K   H O L E ]--------------------//
+DarkHole :: DarkHole(int InitX, int InitY) : Meteor(InitX, InitY) {}
+
+DarkHole :: ~DarkHole() {}
+
+void DarkHole :: Show() {
+    HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
+    HBRUSH whiteBrush = CreateSolidBrush(RGB(255,250,200));
+    HPEN whitePen = CreatePen(PS_SOLID, 2, RGB(255,250,200));
+
+    SelectObject(hdc, blackBrush);
+    SelectObject(hdc, whitePen);
+
+    Ellipse(hdc, x-radius*3, y-radius*3, x+radius*3, y+radius*3);
+
+    Ellipse(hdc, x-radius, y-radius, x+radius, y+radius);
+
+    SelectObject(hdc, whiteBrush);
+
+    Ellipse(hdc, x-radius-radius/5, y-radius/5, x+radius + radius/5,  y+radius/5);
+
+    DeleteObject(blackBrush);
+    DeleteObject(whiteBrush);
+    DeleteObject(whitePen);
+}
+
+void DarkHole :: Hide() {
+    HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
+    HPEN blackPen = CreatePen(PS_SOLID, 2, RGB(0,0,0));
+
+    SelectObject(hdc, blackBrush);
+    SelectObject(hdc, blackPen);
+
+    Ellipse(hdc, x-radius*3, y-radius*3, x+radius*3, y+radius*3);
+
+    DeleteObject(blackBrush);
+    DeleteObject(blackPen);
+}
+
+
+//-----------------------[ H E A R T ]------------------------//
+Heart :: Heart(int InitX, int InitY) : ABC_Object(InitX, InitY) {}
+
+Heart :: ~Heart() {}
+
+void Heart :: Show() {
+    HBRUSH redBrush = CreateSolidBrush(RGB(255, 0, 0));
+    HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+    
+    SelectObject(hdc, redBrush);
+    SelectObject(hdc, redPen);
+    
+    int halfSize = 50 / 2;
+    
+    BeginPath(hdc);
+    POINT triangle[3] = {
+        { x - halfSize, y+3 },         
+        { x + halfSize, y+3 },         
+        { x, y + halfSize }            
+    };
+    BYTE polytype[3] = { PT_MOVETO, PT_LINETO, PT_LINETO};
+
+    PolyDraw(hdc, triangle, polytype, 3);
+    
+    EndPath(hdc);
+    FillPath(hdc);
+    
+    Ellipse(hdc, x - halfSize, y - halfSize/2, x, y + halfSize/2);
+    
+    Ellipse(hdc, x, y - halfSize/2, x + halfSize, y + halfSize/2);
+    
+    DeleteObject(redBrush);
+    DeleteObject(redPen);
+}
+
+void Heart :: Hide() {
+    HBRUSH blackBrush = CreateSolidBrush(RGB(0, 0, 0));
+    HPEN blackPen = CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
+    
+    SelectObject(hdc, blackBrush);
+    SelectObject(hdc, blackPen);
+    
+    int halfSize = 50 / 2;
+    
+    BeginPath(hdc);
+    POINT triangle[3] = {
+        { x - halfSize, y+3 },         
+        { x + halfSize, y+3 },         
+        { x, y + halfSize }            
+    };
+    BYTE polytype[3] = { PT_MOVETO, PT_LINETO, PT_LINETO};
+
+    PolyDraw(hdc, triangle, polytype, 3);
+    
+    EndPath(hdc);
+    FillPath(hdc);
+    
+    Ellipse(hdc, x - halfSize, y - halfSize/2, x, y + halfSize/2);
+    
+    Ellipse(hdc, x, y - halfSize/2, x + halfSize, y + halfSize/2);
+    
+    DeleteObject(blackBrush);
+    DeleteObject(blackPen);
+}
+
+
+//----------------------[ H E A L T H ]-----------------------//
+Health :: Health(int InitX, int InitY) : Heart(InitX, InitY) {}
+
+Health :: ~Health() {}
+
+void Health :: Show() {
+    HBRUSH greenBrush = CreateSolidBrush(RGB(0,255,0));
+    HPEN greenPen = CreatePen(PS_SOLID, 2, RGB(0,255,0));
+
+    
+    SelectObject(hdc, greenBrush);
+    SelectObject(hdc, greenPen);
+    
+    
+    Rectangle(hdc, x - 25, y - 5, x + 25, y + 5);
+    
+    Rectangle(hdc, x - 5, y - 25, x + 5, y + 25);
+    
+    DeleteObject(greenBrush);
+    DeleteObject(greenPen);
+}
+
+void Health :: Hide() {
+    HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
+    HPEN blackPen = CreatePen(PS_SOLID, 2, RGB(0,0,0));
+
+    
+    SelectObject(hdc, blackBrush);
+    SelectObject(hdc, blackPen);
+    
+    
+    Rectangle(hdc, x - 25, y - 5, x + 25, y + 5);
+    
+    Rectangle(hdc, x - 5, y - 25, x + 5, y + 25);
+    
+    DeleteObject(blackBrush);
+    DeleteObject(blackPen);
+}
+
+
+//-----------------------[ S H I E L D ]----------------------//
+Shield :: Shield(int InitX, int InitY) : Health(InitX, InitY) {}
+
+Shield :: ~Shield() {}
+
+void Shield :: Show() {
+    HBRUSH grayBrush = CreateSolidBrush(RGB(192,192,192));
+    HBRUSH whiteBrush = CreateSolidBrush(RGB(255,255,255));
+    HPEN grayPen = CreatePen(PS_SOLID, 2, RGB(192,192,192));
+    HPEN whitePen = CreatePen(PS_SOLID, 2, RGB(255,255,255));
+
+    SelectObject(hdc, grayBrush);
+    SelectObject(hdc, grayPen);
+
+    Rectangle(hdc, x-15, y-20, x+15, y+18);
+
+    Rectangle(hdc, x-20, y-30, x+20, y-20);
+
+    BeginPath(hdc);
+    POINT triangle[3] =
+    {
+        {x-20, y+16},
+        {x+20, y+16},
+        {x, y+28}
+    };
+    BYTE triangleType[3] = {PT_MOVETO, PT_LINETO, PT_LINETO};
+    PolyDraw(hdc, triangle, triangleType, 3);
+    EndPath(hdc);
+    FillPath(hdc);
+
+    SelectObject(hdc, whiteBrush);
+    SelectObject(hdc, whitePen);
+
+    Rectangle(hdc, x-10, y-12, x+10, y+10);
+
+    Rectangle(hdc, x-12, y-17, x+13, y-12);
+
+    BeginPath(hdc);
+    POINT triangle1[3] =
+    {
+        {x-12, y+8},
+        {x+12, y+8},
+        {x, y+15}
+    };
+    BYTE triangleType1[3] = {PT_MOVETO, PT_LINETO, PT_LINETO};
+    PolyDraw(hdc, triangle1, triangleType1, 3);
+    EndPath(hdc);
+    FillPath(hdc);
+
+    DeleteObject(grayBrush);
+    DeleteObject(whiteBrush);
+    DeleteObject(grayPen);
+    DeleteObject(whitePen);
+}
+
+void Shield :: Hide() {
+    HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
+    HPEN blackPen = CreatePen(PS_SOLID, 2, RGB(0,0,0));
+
+    SelectObject(hdc, blackBrush);
+    SelectObject(hdc, blackPen);
+
+    Rectangle(hdc, x-15, y-20, x+15, y+18);
+
+    Rectangle(hdc, x-20, y-30, x+20, y-20);
+
+    BeginPath(hdc);
+    POINT triangle[3] =
+    {
+        {x-20, y+16},
+        {x+20, y+16},
+        {x, y+28}
+    };
+    BYTE triangleType[3] = {PT_MOVETO, PT_LINETO, PT_LINETO};
+    PolyDraw(hdc, triangle, triangleType, 3);
+    EndPath(hdc);
+    FillPath(hdc);
+
+    DeleteObject(blackBrush);
+    DeleteObject(blackPen);
+}

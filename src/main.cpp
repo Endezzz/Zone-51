@@ -28,10 +28,7 @@ int main() {
     
     LevelsWindow window(950,600);
     window.Show();
-    // Meteor meteor(100, 300);
-    // meteor.SetRadius(30);
-    // meteor.SetDerection(1);
-    // meteor.Show();
+
     NLO nlo1(950, 600);
     NLO * nlo = &nlo1;
     levels(window, nlo);

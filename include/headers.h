@@ -106,7 +106,6 @@ class Heart : public ABC_Object {
     public:
         Heart(int InitX, int InitY);
         ~Heart();
-        virtual void Draw();
         void Show() override;
         void Hide() override;
 };
