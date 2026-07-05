@@ -31,7 +31,7 @@ int main() {
 
     NLO nlo1(950, 600);
     NLO * nlo = &nlo1;
-    levels(window, nlo);
+    levels(window, nlo, nlo1);
     ReleaseDC(hwnd, hdc);
     return 0;
 }

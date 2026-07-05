@@ -66,6 +66,22 @@ int NLO :: GetWidth() {
     return width;
 }
 
+int NLO :: GetHealth() {
+    return health;
+}
+
+void NLO :: SetHeight(int NewHealth) {
+    health = NewHealth;
+}
+
+void NLO :: SetWidth(int NewWidth) {
+    width = NewWidth;
+}
+
+void NLO :: SetHealth(int NewHealth) {
+    health = NewHealth;
+}
+
 void NLO :: Show() {
     DrawWindow();
     DrawCabin();
@@ -266,6 +282,8 @@ void YellowNLO :: DrawAlien() {
 
     Ellipse(hdc, x1, y1, x2, y2);
 
+    DeleteObject(whitePen);
+    DeleteObject(whiteBrush);
     DeleteObject(greenBrush);
     DeleteObject(greenPen);
 }
@@ -413,6 +431,8 @@ void RedNLO :: DrawAlien() {
     DeleteObject(greenPen);
     DeleteObject(blackPen);
     DeleteObject(blackBrush);
+    DeleteObject(whiteBrush);
+    DeleteObject(whitePen);
 }
 
 
@@ -437,7 +457,7 @@ LevelsWindow :: ~LevelsWindow() {}
 
 void LevelsWindow :: Show() {
     HBRUSH background = CreateSolidBrush(RGB(0,0,0));
-    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(255,0,0));
+    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(0,0,255));
     HPEN whitePen = CreatePen(PS_SOLID, 3, RGB(255,255,255));
 
     SelectObject(hdc, background);
@@ -573,7 +593,7 @@ FirstLevelWindow :: ~FirstLevelWindow() {}
 
 void FirstLevelWindow :: Show() {
     HBRUSH background = CreateSolidBrush(RGB(0,0,0));
-    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(255,0,0));
+    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(0,0,255));
 
     SelectObject(hdc, background);
     SelectObject(hdc, circuit);
@@ -657,7 +677,7 @@ SecondLevelWindow :: ~SecondLevelWindow() {}
 
 void SecondLevelWindow :: Show() {
     HBRUSH background = CreateSolidBrush(RGB(0,0,0));
-    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(255,0,0));
+    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(0,0,255));
 
     SelectObject(hdc, background);
     SelectObject(hdc, circuit);
@@ -741,7 +761,7 @@ ThirdLevelWindow :: ~ThirdLevelWindow() {}
 
 void ThirdLevelWindow :: Show() {
     HBRUSH background = CreateSolidBrush(RGB(0,0,0));
-    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(255,0,0));
+    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(0,0,255));
 
     SelectObject(hdc, background);
     SelectObject(hdc, circuit);
@@ -823,13 +843,32 @@ ABC_Object :: ABC_Object(int InitX, int InitY) : Point(InitX, InitY) {}
 
 ABC_Object :: ~ABC_Object() {}
 
+int ABC_Object :: GetWidth() {
+    return width;
+}
+
+int ABC_Object :: GetHeight() {
+    return height;
+}
+
+void ABC_Object :: SetWidth(int NewWidth) {
+    width = NewWidth;
+}
+
+void ABC_Object :: SetHeight(int NewHeight) {
+    height = NewHeight;
+}
+
 bool ABC_Object :: isActive() {
     return active;
 }
 
 
 //---------------------[ R O C K E T ]--------------------------//
-Rocket :: Rocket(int InitX, int InitY) : ABC_Object(InitX, InitY) {}
+Rocket :: Rocket(int InitX, int InitY) : ABC_Object(InitX, InitY) {
+    SetWidth(40);
+    SetHeight(20);
+}
 
 Rocket :: ~Rocket() {}
 
@@ -1057,7 +1096,11 @@ void Rocket :: Hide() {
 
 
 //------------------------[ C H A R G E ]----------------------//
-Charge :: Charge(int InitX, int InitY) : Rocket(InitX, InitY) {}
+Charge :: Charge(int InitX, int InitY) : Rocket(InitX, InitY) {
+    SetHeight(40);
+    SetWidth(40);
+    SetRadius(20);
+}
 
 Charge :: ~Charge() {}
 
@@ -1101,7 +1144,11 @@ void Charge :: Hide() {
 
 
 //-------------------------[ M E T E O R ]--------------------//
-Meteor :: Meteor(int InitX, int InitY) : Charge(InitX, InitY) {}
+Meteor :: Meteor(int InitX, int InitY) : Charge(InitX, InitY) {
+    SetHeight(40);
+    SetWidth(40);
+    SetRadius(20);
+}
 
 Meteor :: ~Meteor() {}
 
@@ -1314,7 +1361,11 @@ void Meteor :: Hide() {
 
 
 //-------------------[ D A R K   H O L E ]--------------------//
-DarkHole :: DarkHole(int InitX, int InitY) : Meteor(InitX, InitY) {}
+DarkHole :: DarkHole(int InitX, int InitY) : Meteor(InitX, InitY) {
+    SetHeight(40);
+    SetWidth(40);
+    SetRadius(20);
+}
 
 DarkHole :: ~DarkHole() {}
 
@@ -1420,7 +1471,10 @@ void Heart :: Hide() {
 
 
 //----------------------[ H E A L T H ]-----------------------//
-Health :: Health(int InitX, int InitY) : Heart(InitX, InitY) {}
+Health :: Health(int InitX, int InitY) : Heart(InitX, InitY) {
+    SetWidth(50);
+    SetHeight(50);
+}
 
 Health :: ~Health() {}
 
@@ -1460,7 +1514,10 @@ void Health :: Hide() {
 
 
 //-----------------------[ S H I E L D ]----------------------//
-Shield :: Shield(int InitX, int InitY) : Health(InitX, InitY) {}
+Shield :: Shield(int InitX, int InitY) : Health(InitX, InitY) {
+    SetWidth(40);
+    SetHeight(60);
+}
 
 Shield :: ~Shield() {}
 
@@ -1482,7 +1539,7 @@ void Shield :: Show() {
     {
         {x-20, y+16},
         {x+20, y+16},
-        {x, y+28}
+        {x, y+30}
     };
     BYTE triangleType[3] = {PT_MOVETO, PT_LINETO, PT_LINETO};
     PolyDraw(hdc, triangle, triangleType, 3);

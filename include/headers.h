@@ -23,11 +23,16 @@ class NLO : public Point {
     protected:
         int height = 90;
         int width = 180;
+        int health = 3;
     public:
         NLO(int InitX, int InitY);
         ~NLO();
         int GetHeight();
         int GetWidth();
+        int GetHealth();
+        void SetHeight(int NewHeight);
+        void SetWidth(int NewWidth);
+        void SetHealth(int NewHealth);
         void Show() override;
         void Hide() override;
         virtual void DrawCabin();
@@ -56,9 +61,15 @@ class RedNLO : public NLO {
 class ABC_Object : public Point {
     protected:
         bool active;
+        int width;
+        int height;
     public:
         ABC_Object(int InitX, int InitY);
         ~ABC_Object();
+        int GetWidth();
+        int GetHeight();
+        void SetWidth(int NewWidth);
+        void SetHeight(int NewHeight);
         bool isActive();
 };
 
