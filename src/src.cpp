@@ -1129,8 +1129,10 @@ void Charge :: Show() {
 
 void Charge :: Hide() {
     HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
+    HPEN blackPen = CreatePen(PS_SOLID, 2, RGB(0,0,0));
 
     SelectObject(hdc, blackBrush);
+    SelectObject(hdc, blackPen);
 
     int x1 = x - radius; 
     int y1 = y - radius;
@@ -1140,6 +1142,7 @@ void Charge :: Hide() {
     Ellipse(hdc, x1, y1, x2, y2);
 
     DeleteObject(blackBrush);
+    DeleteObject(blackPen);
 }
 
 
