@@ -12,25 +12,25 @@ This is a game about an alien who has wandered into a rather unfriendly part of 
 
 ### Gameplay
 
-<p align="center">
+<p>
   <img src="images/levels.png" width="300" alt="Levels menu">
 </p>
 
 > Try to complete all three levels.
 
-<p align="center">
+<p>
   <img src="images/firstLevel.png" width="300" alt="Level 1">
 </p>
 
 > Dodge the missiles.
 
-<p align="center">
+<p>
   <img src="images/secondLevel.png" width="300" alt="Level 2">
 </p>
 
 > Explore space!
 
-<p align="center">
+<p>
   <img src="images/thirdLevel.png" width="300" alt="Level 3">
 </p>
 
