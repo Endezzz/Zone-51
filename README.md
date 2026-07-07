@@ -12,18 +12,18 @@ This is a game about an alien who has wandered into a rather unfriendly part of 
 
 ### Gameplay
 
-![](./image/levels.png)
+![](./images/levels.png)
 
 > Try to complete all three levels.
 
-![](./image/firstLevel.png)
+![](./images/firstLevel.png)
 
 > Dodge the missiles.
 
-![](./image/secondLevel.png)
+![](./images/secondLevel.png)
 
 > Explore space!
 
-![](./image/thirdLevel.png)
+![](./images/thirdLevel.png)
 
 > But always look around you.
