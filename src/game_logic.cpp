@@ -61,19 +61,24 @@ void firstLevel(NLO * nlo, LevelsWindow & window, NLO & nlo1) {
         DWORD currentTime = GetTickCount();
         DWORD elapsedTime = currentTime - startTime;
 
-        if(currentTime - lastSpawnTime >= 7000 || random_number == 0) {
+        if(currentTime - lastSpawnTime >= 1000 || random_number == 0) {
             random_number = distr(gen);
             if(random_number % 2 == 0)
-                side = 1450;
+                side = 400;
             else
-                side = 450;
-            rockets.push_back(new Rocket(side, random_number));
+                side = 1500;
+            rockets.push_back(new Rocket(side, nlo->GetY()));
+            rockets[rockets.size() - 1]->SetDirection(random_number%2);
             lastSpawnTime = currentTime;
         }
         
         if(currentTime - lastMoveTime >= 1) {
             for(size_t j = 0; j < rockets.size(); j++) {
-                RocketMovement(nlo, rockets[j]);
+                if(!RocketMovement(nlo, rockets[j])) {
+                    rockets[j]->Hide();
+                    delete rockets[j];
+                    rockets.erase(rockets.begin() + j);
+                }
             }
             lastMoveTime = currentTime;
             nlo->Show();
@@ -149,9 +154,11 @@ void firstLevel(NLO * nlo, LevelsWindow & window, NLO & nlo1) {
     shields.clear();
 
     if(window.GetState() < 2 && state == 0) window.SetState(2);
+
     nlo1.SetX(nlo->GetX());
     nlo1.SetY(nlo->GetY());
     nlo1.SetHealth(3);
+    nlo1.SetMoveable(true);
     nlo = &nlo1;
     window.Show();
 }
@@ -182,6 +189,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     DWORD lastSpawnTimeHealth = startTime;
     DWORD lastIncreseTime = startTime;
     DWORD lastMoveTime = startTime;
+    DWORD freezTime = startTime;
 
     random_device rd;
     mt19937 gen(rd());
@@ -199,21 +207,30 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     vector <Shield *> shields;
 
     while(true) { 
-        MovementNLO(nlo);
         DWORD currentTime = GetTickCount();
         DWORD elapsedTime = currentTime - startTime;
+        if(nlo->GetMoveable()) {
+            MovementNLO(nlo);
+            freezTime = GetTickCount();
+        }
+        else {
+            if(currentTime - freezTime >= 2000) {
+                nlo->SetMoveable(true);
+            }
+        }
 
-        if(currentTime - lastSpawnTime >= 10000 || random_number == 0) {
+        if(currentTime - lastSpawnTime >= 1000 || random_number == 0) {
             random_number = distr(gen);
             if(random_number % 2 == 0)
-                side = 1450;
+                side = 400;
             else
-                side = 450;
-            rockets.push_back(new Rocket(side, random_number));
+                side = 1500;
+            rockets.push_back(new Rocket(side, nlo->GetY()));
+            rockets[rockets.size() - 1]->SetDirection(random_number%2);
             lastSpawnTime = currentTime;
         }
 
-        if(currentTime - lastSpawnTimeCharges >= 15000) {
+        if(currentTime - lastSpawnTimeCharges >= 7000) {
             random_number = distr(gen);
             if(random_number % 2 == 0) {
                 side = 1450;
@@ -233,19 +250,24 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
         if(currentTime - lastSpawnTimeMeteors >= 5000) {
             random_number = distr1(gen);
             if(random_number % 2 == 0) {
-                side = 890;
+                side = 860;
             }
             else {
                 side = 330;
             }
             meteors.push_back(new Meteor(random_number, side));
             meteors[meteors.size()-1]->SetDirection(random_number%2);
+            meteors[meteors.size()-1]->SetRadius(30);
             lastSpawnTimeMeteors = currentTime;
         }
         
         if(currentTime - lastMoveTime >= 1) {
             for(size_t j = 0; j < rockets.size(); j++) {
-                RocketMovement(nlo, rockets[j]);
+                if(!RocketMovement(nlo, rockets[j])) {
+                    rockets[j]->Hide();
+                    delete rockets[j];
+                    rockets.erase(rockets.begin() + j);
+                }
             }
             for(size_t j = 0; j < charges.size(); j++) {
                 ChargeMovement(nlo, charges[j]);
@@ -258,7 +280,8 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
                 }
             }
             lastMoveTime = currentTime;
-            nlo->Show();
+            if(nlo->GetMoveable())
+                nlo->Show();
         }
 
         if(currentTime - lastIncreseTime >= 350) {
@@ -342,6 +365,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     nlo1.SetX(nlo->GetX());
     nlo1.SetY(nlo->GetY());
     nlo1.SetHealth(3);
+    nlo1.SetMoveable(true);
     nlo = &nlo1;
     window.Show();
 }
@@ -373,6 +397,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     DWORD lastSpawnTimeHealth = startTime;
     DWORD lastIncreseTime = startTime;
     DWORD lastMoveTime = startTime;
+    DWORD freezTime = startTime;
 
     random_device rd;
     mt19937 gen(rd());
@@ -390,21 +415,30 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     vector <Shield *> shields;
 
     while(true) { 
-        MovementNLO(nlo);
         DWORD currentTime = GetTickCount();
         DWORD elapsedTime = currentTime - startTime;
+        if(nlo->GetMoveable()) {
+            MovementNLO(nlo);
+            freezTime = GetTickCount();
+        }
+        else {
+            if(currentTime - freezTime >= 2000) {
+                nlo->SetMoveable(true);
+            }
+        }
 
-        if(currentTime - lastSpawnTime >= 10000 || random_number == 0) {
+        if(currentTime - lastSpawnTime >= 1000 || random_number == 0) {
             random_number = distr(gen);
             if(random_number % 2 == 0)
-                side = 1450;
+                side = 400;
             else
-                side = 450;
-            rockets.push_back(new Rocket(side, random_number));
+                side = 1500;
+            rockets.push_back(new Rocket(side, nlo->GetY()));
+            rockets[rockets.size() - 1]->SetDirection(random_number%2);
             lastSpawnTime = currentTime;
         }
 
-        if(currentTime - lastSpawnTimeCharges >= 15000) {
+        if(currentTime - lastSpawnTimeCharges >= 7000) {
             random_number = distr(gen);
             if(random_number % 2 == 0) {
                 side = 1450;
@@ -431,25 +465,31 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             }
             holes.push_back(new DarkHole(random_number, side));
             holes[holes.size()-1]->SetDirection(random_number%2);
+            holes[holes.size()-1]->SetRadius(30);
             lastSpawnTimeHoles = currentTime;
         }
 
         if(currentTime - lastSpawnTimeMeteors >= 5000) {
             random_number = distr1(gen);
             if(random_number % 2 == 0) {
-                side = 890;
+                side = 860;
             }
             else {
                 side = 330;
             }
             meteors.push_back(new Meteor(random_number, side));
             meteors[meteors.size()-1]->SetDirection(random_number%2);
+            meteors[meteors.size()-1]->SetRadius(30);
             lastSpawnTimeMeteors = currentTime;
         }
         
         if(currentTime - lastMoveTime >= 1) {
             for(size_t j = 0; j < rockets.size(); j++) {
-                RocketMovement(nlo, rockets[j]);
+                if(!RocketMovement(nlo, rockets[j])) {
+                    rockets[j]->Hide();
+                    delete rockets[j];
+                    rockets.erase(rockets.begin() + j);
+                }
             }
             for(size_t j = 0; j < charges.size(); j++) {
                 ChargeMovement(nlo, charges[j]);
@@ -469,7 +509,8 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
                 }
             }
             lastMoveTime = currentTime;
-            nlo->Show();
+            if(nlo->GetMoveable())
+                nlo->Show();
         }
 
         if(currentTime - lastIncreseTime >= 350) {
@@ -480,6 +521,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             }
             lastIncreseTime = currentTime;
         }
+        
         collision(nlo, rockets, charges, meteors, holes, healths, shields);
 
         if(nlo->GetHealth() == 3) {
@@ -551,6 +593,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
 
     nlo1.SetX(nlo->GetX());
     nlo1.SetY(nlo->GetY());
+    nlo1.SetMoveable(true);
     nlo1.SetHealth(3);
     nlo = &nlo1;
     window.Show();
@@ -585,25 +628,23 @@ void MovementNLO(NLO * nlo) {
 }
 
 
-void RocketMovement(NLO * nlo, Rocket * rocket) {
-    if(rocket->GetX() < nlo->GetX())
-    {
-        rocket->Hide();
-        rocket->SetDirection(0);
-        if(rocket->GetY() < nlo->GetY())
-            rocket->MoveTo(rocket->GetX()+1, rocket->GetY()+1);
-        else 
-            rocket->MoveTo(rocket->GetX()+1, rocket->GetY()-1);
+bool RocketMovement(NLO * nlo, Rocket * rocket) {
+    if(rocket->GetDirection() == 0) {
+        if(rocket->GetX() + 3 < 1540 - rocket->GetWidth()) {
+            rocket->MoveTo(rocket->GetX()+3, rocket->GetY());
+        }
+        else
+            return false;
     }
-    else 
-    {
-        rocket->Hide();
-        rocket->SetDirection(1);
-        if(rocket->GetY() < nlo->GetY())
-            rocket->MoveTo(rocket->GetX()-1, rocket->GetY()+1);
+
+    if(rocket->GetDirection() == 1) {
+        if(rocket->GetX() - 3 > 360 + rocket->GetWidth())
+            rocket->MoveTo(rocket->GetX()-3, rocket->GetY());
         else 
-            rocket->MoveTo(rocket->GetX()-1, rocket->GetY()-1);
+            return false;
     }
+
+    return true;
 }
 
 
@@ -690,7 +731,8 @@ void collision(NLO * nlo, vector <Rocket *> &rockets, vector <Charge *> &charges
     }
     for(int i = 0; i < charges.size(); i++) {
         if(checkCollision(nlo, charges[i])) {
-            nlo->SetHealth(nlo->GetHealth()-1);
+            nlo->SetMoveable(false);
+            nlo->TurnOf();
             charges[i]->Hide();
             delete charges[i];
             charges.erase(charges.begin() + i);

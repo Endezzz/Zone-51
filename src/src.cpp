@@ -70,6 +70,14 @@ int NLO :: GetHealth() {
     return health;
 }
 
+bool NLO :: GetMoveable() {
+    return moveable;
+}
+
+void NLO :: SetMoveable(bool NewMoveable) {
+    moveable = NewMoveable;
+}
+
 void NLO :: SetHeight(int NewHealth) {
     health = NewHealth;
 }
@@ -80,6 +88,59 @@ void NLO :: SetWidth(int NewWidth) {
 
 void NLO :: SetHealth(int NewHealth) {
     health = NewHealth;
+}
+
+void NLO :: TurnOf() {
+    int x1 = GetX() - width/4, y1 = GetY() - height/2;
+    int x2 = GetX() + width/4, y2 = GetY() + height/10;
+
+    HPEN bluePen = CreatePen(PS_SOLID, 3, RGB(0,0,255));
+    HBRUSH blueBrush = CreateSolidBrush(RGB(0,0,255));
+    HBRUSH lightBlueBrush = CreateSolidBrush(RGB(156,220,255));
+    HPEN grayPen = CreatePen(PS_SOLID, 2, RGB(50,50,50));
+    HBRUSH grayBrush = CreateSolidBrush(RGB(50,50,50));
+
+    SelectObject(hdc, bluePen);
+    SelectObject(hdc, lightBlueBrush);
+
+    Ellipse(hdc, x1, y1, x2, y2);
+
+    SelectObject(hdc, grayPen);
+    SelectObject(hdc, grayBrush);
+
+    x1 = GetX() - width/5;
+    y1 = GetY() - height/2.5;
+    x2 = GetX() + width/5;
+    y2 = GetY() + height/10;
+
+    Ellipse(hdc, x1, y1, x2, y2);
+
+    x1 = GetX() - width/2;
+    y1 = GetY() - height/12;
+    x2 = GetX() + width/2;
+    y2 = GetY() + height/2;
+
+
+    SelectObject(hdc, blueBrush);
+    SelectObject(hdc, bluePen); 
+
+    Ellipse(hdc, x1, y1, x2, y2);
+
+    SelectObject(hdc, grayBrush);
+    SelectObject(hdc, grayPen); 
+
+    x1 = GetX() - width/2 - width/15;
+    y1 = GetY() + height/5;
+    x2 = GetX() + width/2 + width/15;
+    y2 = GetY() + height/5 + height/15;
+    
+    Ellipse(hdc, x1, y1, x2, y2);
+
+    DeleteObject(blueBrush);
+    DeleteObject(bluePen);
+    DeleteObject(lightBlueBrush);
+    DeleteObject(grayBrush);
+    DeleteObject(grayPen); 
 }
 
 void NLO :: Show() {

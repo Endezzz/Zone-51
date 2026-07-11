@@ -6,7 +6,7 @@ using namespace std;
 
 void MovementNLO(NLO * nlo);
 
-void RocketMovement(NLO * nlo, Rocket * rocket);
+bool RocketMovement(NLO * nlo, Rocket * rocket);
 
 void ChargeMovement(NLO * nlo, Charge * charge);
 

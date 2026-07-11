@@ -24,17 +24,21 @@ class NLO : public Point {
         int height = 90;
         int width = 180;
         int health = 3;
+        bool moveable = true;
     public:
         NLO(int InitX, int InitY);
         ~NLO();
         int GetHeight();
         int GetWidth();
         int GetHealth();
+        bool GetMoveable();
+        void SetMoveable(bool NewMoveable);
         void SetHeight(int NewHeight);
         void SetWidth(int NewWidth);
         void SetHealth(int NewHealth);
         void Show() override;
         void Hide() override;
+        void TurnOf();
         virtual void DrawCabin();
         virtual void DrawAlien();
         virtual void DrawWindow();
