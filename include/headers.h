@@ -25,6 +25,7 @@ class NLO : public Point {
         int width = 180;
         int health = 3;
         bool moveable = true;
+        bool shield = false;
     public:
         NLO(int InitX, int InitY);
         ~NLO();
@@ -32,6 +33,8 @@ class NLO : public Point {
         int GetWidth();
         int GetHealth();
         bool GetMoveable();
+        bool GetShield();
+        void SetShield(bool NewShield);
         void SetMoveable(bool NewMoveable);
         void SetHeight(int NewHeight);
         void SetWidth(int NewWidth);

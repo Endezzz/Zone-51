@@ -187,6 +187,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     DWORD lastSpawnTimeCharges = startTime;
     DWORD lastSpawnTimeMeteors = startTime;
     DWORD lastSpawnTimeHealth = startTime;
+    DWORD lastSpawnTimeShield = startTime;
     DWORD lastIncreseTime = startTime;
     DWORD lastMoveTime = startTime;
     DWORD freezTime = startTime;
@@ -198,6 +199,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
 
     int random_number = 0;
     int side;
+    bool shield = false;
     
     vector <Rocket*> rockets;
     vector <Charge *> charges;
@@ -247,6 +249,19 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             lastSpawnTimeCharges = currentTime;
         }
 
+        if(currentTime - lastSpawnTimeHealth >= 12000) {
+            random_number = distr(gen);
+            side = distr1(gen);
+            for(size_t j = 0; j < healths.size(); j++) {
+                healths[j]->Hide();
+                delete healths[j];
+            }
+            healths.clear();
+            healths.push_back(new Health(side, random_number));
+            healths[healths.size() - 1]->Show();
+            lastSpawnTimeHealth = currentTime;
+        }
+
         if(currentTime - lastSpawnTimeMeteors >= 5000) {
             random_number = distr1(gen);
             if(random_number % 2 == 0) {
@@ -261,6 +276,21 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             lastSpawnTimeMeteors = currentTime;
         }
         
+        if(currentTime - lastSpawnTimeShield >= 20000) {
+            uniform_int_distribution<> distr2(400, 600);
+            random_number = distr2(gen);
+            uniform_int_distribution<> distr3(600, 1200);
+            side = distr3(gen);
+            for(size_t j = 0; j < shields.size(); j++) {
+                shields[j]->Hide();
+                delete shields[j];
+            }
+            shields.clear();
+            shields.push_back(new Shield(side, random_number));
+            shields[shields.size() - 1]->Show();
+            lastSpawnTimeShield = currentTime;
+        }
+
         if(currentTime - lastMoveTime >= 1) {
             for(size_t j = 0; j < rockets.size(); j++) {
                 if(!RocketMovement(nlo, rockets[j])) {
@@ -279,6 +309,12 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
                     meteors.erase(meteors.begin() + j);
                 }
             }
+            for(size_t j = 0; j < healths.size(); j++) {
+                healths[j]->Show();
+            }
+            for(size_t j = 0; j < shields.size(); j++) {
+                shields[j]->Show();
+            }
             lastMoveTime = currentTime;
             if(nlo->GetMoveable())
                 nlo->Show();
@@ -295,6 +331,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
         collision(nlo, rockets, charges, meteors, holes, healths, shields);
 
         if(nlo->GetHealth() == 3) {
+            if(nlo->GetShield()) nlo1.SetShield(true);
             nlo1.SetX(nlo->GetX());
             nlo1.SetY(nlo->GetY());
             nlo1.SetHealth(3);
@@ -304,6 +341,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             thirdHeart.Show();
         }
         else if(nlo->GetHealth() == 2) {
+            if(nlo->GetShield()) nlo2.SetShield(true);
             nlo2.SetX(nlo->GetX());
             nlo2.SetY(nlo->GetY());
             nlo2.SetHealth(2);
@@ -313,6 +351,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             thirdHeart.Hide();
         }
         else if(nlo->GetHealth() == 1) {
+            if(nlo->GetShield()) nlo3.SetShield(true);
             nlo3.SetX(nlo->GetX());
             nlo3.SetY(nlo->GetY());
             nlo3.SetHealth(1);
@@ -395,6 +434,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     DWORD lastSpawnTimeMeteors = startTime;
     DWORD lastSpawnTimeHoles = startTime;
     DWORD lastSpawnTimeHealth = startTime;
+    DWORD lastSpawnTimeShield = startTime;
     DWORD lastIncreseTime = startTime;
     DWORD lastMoveTime = startTime;
     DWORD freezTime = startTime;
@@ -483,6 +523,34 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             lastSpawnTimeMeteors = currentTime;
         }
         
+        if(currentTime - lastSpawnTimeHealth >= 12000) {
+            random_number = distr(gen);
+            side = distr1(gen);
+            for(size_t j = 0; j < healths.size(); j++) {
+                healths[j]->Hide();
+                delete healths[j];
+            }
+            healths.clear();
+            healths.push_back(new Health(side, random_number));
+            healths[healths.size() - 1]->Show();
+            lastSpawnTimeHealth = currentTime;
+        }
+        
+        if(currentTime - lastSpawnTimeShield >= 15000) {
+            uniform_int_distribution<> distr2(400, 600);
+            random_number = distr2(gen);
+            uniform_int_distribution<> distr3(600, 1200);
+            side = distr3(gen);
+            for(size_t j = 0; j < shields.size(); j++) {
+                shields[j]->Hide();
+                delete shields[j];
+            }
+            shields.clear();
+            shields.push_back(new Shield(side, random_number));
+            shields[shields.size() - 1]->Show();
+            lastSpawnTimeShield = currentTime;
+        }
+
         if(currentTime - lastMoveTime >= 1) {
             for(size_t j = 0; j < rockets.size(); j++) {
                 if(!RocketMovement(nlo, rockets[j])) {
@@ -508,6 +576,12 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
                     holes.erase(holes.begin() + j);
                 }
             }
+            for(size_t j = 0; j < healths.size(); j++) {
+                healths[j]->Show();
+            }
+            for(size_t j = 0; j < shields.size(); j++) {
+                shields[j]->Show();
+            }
             lastMoveTime = currentTime;
             if(nlo->GetMoveable())
                 nlo->Show();
@@ -525,6 +599,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
         collision(nlo, rockets, charges, meteors, holes, healths, shields);
 
         if(nlo->GetHealth() == 3) {
+            if(nlo->GetShield()) nlo1.SetShield(true);
             nlo1.SetX(nlo->GetX());
             nlo1.SetY(nlo->GetY());
             nlo1.SetHealth(3);
@@ -534,6 +609,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             thirdHeart.Show();
         }
         else if(nlo->GetHealth() == 2) {
+            if(nlo->GetShield()) nlo2.SetShield(true);
             nlo2.SetX(nlo->GetX());
             nlo2.SetY(nlo->GetY());
             nlo2.SetHealth(2);
@@ -543,6 +619,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
             thirdHeart.Hide();
         }
         else if(nlo->GetHealth() == 1) {
+            if(nlo->GetShield()) nlo3.SetShield(true);
             nlo3.SetX(nlo->GetX());
             nlo3.SetY(nlo->GetY());
             nlo3.SetHealth(1);
@@ -605,24 +682,47 @@ void MovementNLO(NLO * nlo) {
     DWORD currentTime = GetTickCount();
     if (currentTime%5 == 0){
         if(KEY_DOWN('W'))
-        {
-            if(nlo->GetY()-speed > 250 + nlo->GetHeight()/2+5)
-                nlo->MoveTo(nlo->GetX(), nlo->GetY()-speed);
+        {   if(nlo->GetShield()) {
+                if(nlo->GetY()-speed > 250 + nlo->GetWidth()/1.5+5)
+                    nlo->MoveTo(nlo->GetX(), nlo->GetY()-speed);
+            }
+            else {
+                if(nlo->GetY()-speed > 250 + nlo->GetHeight()/2+5)
+                    nlo->MoveTo(nlo->GetX(), nlo->GetY()-speed);
+            }
         }
         if(KEY_DOWN('S'))
         {
-            if(nlo->GetY()+speed < 950 - nlo->GetHeight()/2-5)
-                nlo->MoveTo(nlo->GetX(), nlo->GetY()+speed);
+            if(nlo->GetShield()) {
+                if(nlo->GetY()+speed < 950 - nlo->GetWidth()/1.5-5)
+                    nlo->MoveTo(nlo->GetX(), nlo->GetY()+speed);
+            }
+            else {
+                if(nlo->GetY()+speed < 950 - nlo->GetHeight()/2-5)
+                    nlo->MoveTo(nlo->GetX(), nlo->GetY()+speed);
+            }
         }
         if(KEY_DOWN('A'))
         {
-            if(nlo->GetX()-speed > 350 + nlo->GetWidth()/2+15)
-                nlo->MoveTo(nlo->GetX()-speed, nlo->GetY());
+            if(nlo->GetShield()) {
+                if(nlo->GetX()-speed > 350 + nlo->GetWidth()/1.5+15)
+                    nlo->MoveTo(nlo->GetX()-speed, nlo->GetY());
+            }
+            else {
+                if(nlo->GetX()-speed > 350 + nlo->GetWidth()/2+15)
+                    nlo->MoveTo(nlo->GetX()-speed, nlo->GetY());
+            }
         }
         if(KEY_DOWN('D'))
         {
-            if(nlo->GetX()+speed < 1550 - nlo->GetWidth()/2-15)
-                nlo->MoveTo(nlo->GetX()+speed, nlo->GetY());
+            if(nlo->GetShield()) {
+                if(nlo->GetX()+speed < 1550 - nlo->GetWidth()/1.5-15)
+                    nlo->MoveTo(nlo->GetX()+speed, nlo->GetY());
+            }
+            else {
+                if(nlo->GetX()+speed < 1550 - nlo->GetWidth()/2-15)
+                    nlo->MoveTo(nlo->GetX()+speed, nlo->GetY());
+            }
         }
     }
 }
@@ -651,18 +751,18 @@ bool RocketMovement(NLO * nlo, Rocket * rocket) {
 void ChargeMovement(NLO * nlo, Charge * charge) {
     if(nlo->GetX() > charge->GetX()) {
         if(nlo->GetY() > charge->GetY()) {
-            charge->MoveTo(charge->GetX()+2, charge->GetY()+1);
+            charge->MoveTo(charge->GetX()+1, charge->GetY()+1);
         }
         else {
-            charge->MoveTo(charge->GetX()+2, charge->GetY()-1);
+            charge->MoveTo(charge->GetX()+1, charge->GetY()-1);
         }
     }
     else {
         if(nlo->GetY() > charge->GetY()) {
-            charge->MoveTo(charge->GetX()-2, charge->GetY()+1);
+            charge->MoveTo(charge->GetX()-1, charge->GetY()+1);
         }
         else {
-            charge->MoveTo(charge->GetX()-2, charge->GetY()-1);
+            charge->MoveTo(charge->GetX()-1, charge->GetY()-1);
         }
     }
 }
@@ -702,6 +802,25 @@ bool DarkHoleMovement(DarkHole * holes) {
 }
 
 
+bool checkShieldCollision(NLO* nlo, ABC_Object* object) {
+    float shieldWidth = nlo->GetWidth() * 1.5f;
+    float shieldHeight = nlo->GetWidth() * 1.5f;
+    
+    int shieldLeft = nlo->GetX() - shieldWidth/2;
+    int shieldRight = nlo->GetX() + shieldWidth/2;
+    int shieldTop = nlo->GetY() - shieldHeight/2;
+    int shieldBottom = nlo->GetY() + shieldHeight/2;
+    
+    int objLeft = object->GetX() - object->GetWidth()/2;
+    int objRight = object->GetX() + object->GetWidth()/2;
+    int objTop = object->GetY() - object->GetHeight()/2;
+    int objBottom = object->GetY() + object->GetHeight()/2;
+    
+    return (shieldRight > objLeft && shieldLeft < objRight &&
+            shieldBottom > objTop && shieldTop < objBottom);
+}
+
+
 bool checkCollision(NLO * nlo, ABC_Object * object) {
     int nloLeft = nlo->GetX() - nlo->GetWidth()/2;
     int nloRight = nlo->GetX() + nlo->GetWidth()/2;
@@ -715,22 +834,41 @@ bool checkCollision(NLO * nlo, ABC_Object * object) {
     
     bool collisionX = nloRight > objLeft && nloLeft < objRight;
     bool collisionY = nloBottom > objTop && nloTop < objBottom;
-    
+
     return collisionX && collisionY;
 }   
 
 
 void collision(NLO * nlo, vector <Rocket *> &rockets, vector <Charge *> &charges, vector <Meteor *> &meteors, vector <DarkHole *> &holes, vector <Health *> &healths, vector <Shield *> &shields) {
     for(int i = 0; i < rockets.size(); i++) {
-        if(checkCollision(nlo, rockets[i])) {
+        if(nlo->GetShield()) {
+            if(checkShieldCollision(nlo, rockets[i])) {
+                nlo->Hide();
+                nlo->SetShield(false);
+                rockets[i]->Hide();
+                delete rockets[i];
+                rockets.erase(rockets.begin() + i);
+            }
+        }
+        else if(checkCollision(nlo, rockets[i])) {
             nlo->SetHealth(nlo->GetHealth()-1);
+            nlo->SetMoveable(true);
             rockets[i]->Hide();
             delete rockets[i];
             rockets.erase(rockets.begin() + i);
         }
     }
     for(int i = 0; i < charges.size(); i++) {
-        if(checkCollision(nlo, charges[i])) {
+        if(nlo->GetShield()) {
+            if(checkShieldCollision(nlo, charges[i])) {
+                nlo->Hide();
+                nlo->SetShield(false);
+                charges[i]->Hide();
+                delete charges[i];
+                charges.erase(charges.begin() + i);
+            }
+        }
+        else if(checkCollision(nlo, charges[i])) {
             nlo->SetMoveable(false);
             nlo->TurnOf();
             charges[i]->Hide();
@@ -739,8 +877,18 @@ void collision(NLO * nlo, vector <Rocket *> &rockets, vector <Charge *> &charges
         }
     }
     for(int i = 0; i < meteors.size(); i++) {
-        if(checkCollision(nlo, meteors[i])) {
+        if(nlo->GetShield()) {
+            if(checkShieldCollision(nlo, meteors[i])) {
+                nlo->Hide();
+                nlo->SetShield(false);
+                meteors[i]->Hide();
+                delete meteors[i];
+                meteors.erase(meteors.begin() + i);
+            }
+        }
+        else if(checkCollision(nlo, meteors[i])) {
             nlo->SetHealth(nlo->GetHealth()-2);
+            nlo->SetMoveable(true);
             meteors[i]->Hide();
             delete meteors[i];
             meteors.erase(meteors.begin() + i);
@@ -756,7 +904,8 @@ void collision(NLO * nlo, vector <Rocket *> &rockets, vector <Charge *> &charges
     }
     for(int i = 0; i < healths.size(); i++) {
         if(checkCollision(nlo, healths[i])) {
-            nlo->SetHealth(nlo->GetHealth()+1);
+            if(nlo->GetHealth() != 3)
+                nlo->SetHealth(nlo->GetHealth()+1);
             healths[i]->Hide();
             delete healths[i];
             healths.erase(healths.begin() + i);
@@ -764,6 +913,7 @@ void collision(NLO * nlo, vector <Rocket *> &rockets, vector <Charge *> &charges
     }
     for(int i = 0; i < shields.size(); i++) {
         if(checkCollision(nlo, shields[i])) {
+            nlo->SetShield(true);
             shields[i]->Hide();
             delete shields[i];
             shields.erase(shields.begin() + i);

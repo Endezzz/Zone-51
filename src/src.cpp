@@ -74,6 +74,14 @@ bool NLO :: GetMoveable() {
     return moveable;
 }
 
+bool NLO :: GetShield() {
+    return shield;
+}
+
+void NLO :: SetShield(bool NewShield) {
+    shield = NewShield;
+}
+
 void NLO :: SetMoveable(bool NewMoveable) {
     moveable = NewMoveable;
 }
@@ -144,36 +152,57 @@ void NLO :: TurnOf() {
 }
 
 void NLO :: Show() {
+    HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
+    HPEN lightBluePen = CreatePen(PS_SOLID, 2, RGB(156,220,255));
+    SelectObject(hdc, blackBrush);
+    SelectObject(hdc, lightBluePen);
+    int x1 = x - width/1.5, y1 = y - width/1.5;
+    int x2 = x + width/1.5, y2 = y + width/1.5;
+    if(GetShield()) {
+        Ellipse(hdc, x1, y1, x2, y2);
+    }
     DrawWindow();
     DrawCabin();
     DrawAlien();
+    DeleteObject(blackBrush);
+    DeleteObject(lightBluePen);
 }
 
 void NLO :: Hide() {
-    int x1 = GetX() - width/4, y1 = GetY() - height/2;
-    int x2 = GetX() + width/4, y2 = GetY() + height/10;
+    
+    int x1, y1, x2, y2;
 
     HPEN blackPen = CreatePen(PS_SOLID, 3, RGB(0,0,0));
     HBRUSH blackBrush = CreateSolidBrush(RGB(0,0,0));
-
     SelectObject(hdc, blackBrush);
     SelectObject(hdc, blackPen);
 
-    Ellipse(hdc, x1, y1, x2, y2);
+    if(GetShield()) {
+        x1 = x - width/1.5, y1 = y - width/1.5;
+        x2 = x + width/1.5, y2 = y + width/1.5;
+        Ellipse(hdc, x1, y1, x2, y2);
+    }
+    else {
+        x1 = GetX() - width/4;
+        y1 = GetY() - height/2;
+        x2 = GetX() + width/4;
+        y2 = GetY() + height/10;
+        Ellipse(hdc, x1, y1, x2, y2);
 
-    x1 = GetX() - width/2;
-    y1 = GetY() - height/12;
-    x2 = GetX() + width/2;
-    y2 = GetY() + height/2;
+        x1 = GetX() - width/2;
+        y1 = GetY() - height/12;
+        x2 = GetX() + width/2;
+        y2 = GetY() + height/2;
 
-    Ellipse(hdc, x1, y1, x2, y2);
+        Ellipse(hdc, x1, y1, x2, y2);
 
-    x1 = GetX() - width/2 - width/15;
-    y1 = GetY() + height/5;
-    x2 = GetX() + width/2 + width/15;
-    y2 = GetY() + height/5 + height/15;
-    
-    Ellipse(hdc, x1, y1, x2, y2);
+        x1 = GetX() - width/2 - width/15;
+        y1 = GetY() + height/5;
+        x2 = GetX() + width/2 + width/15;
+        y2 = GetY() + height/5 + height/15;
+        
+        Ellipse(hdc, x1, y1, x2, y2);
+    }
 
     DeleteObject(blackBrush);
     DeleteObject(blackPen);
