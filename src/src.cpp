@@ -928,6 +928,95 @@ void ThirdLevelWindow :: Hide() {
 }
 
 
+//---------------------[ L A S T  W I N D O W ]---------------//
+LastWindow :: LastWindow(int InitX, int InitY) : Window(InitX, InitY) {}
+
+LastWindow :: ~LastWindow() {}
+
+void LastWindow :: Show() {
+    HBRUSH background = CreateSolidBrush(RGB(0,0,0));
+    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(0,0,255));
+    HPEN whitePen = CreatePen(PS_SOLID, 3, RGB(255,255,255));
+
+    SelectObject(hdc, background);
+    SelectObject(hdc, circuit);
+
+    int mainX1 = GetX() - width/2;
+    int mainY1 = GetY() - height/2;
+    int mainX2 = GetX() + width/2;
+    int mainY2 = GetY() + height/2;
+
+    Rectangle(hdc, mainX1, mainY1, mainX2, mainY2);
+
+    int topX1 = GetX() - width/2;
+    int topY1 = GetY() - height/2 - height/5;
+    int topX2 = GetX() + width/2;
+    int topY2 = GetY() - height/2;
+
+    Rectangle(hdc, topX1, topY1, topX2, topY2);
+
+    SetTextColor(hdc, RGB(255, 255, 255));  
+    SetBkMode(hdc, TRANSPARENT);       
+
+    HFONT hFont = CreateFont(
+        48,                     // Высота шрифта
+        0,                      // Ширина (0 = автоматически)
+        0,                      // Угол наклона
+        0,                      // Направление
+        FW_BOLD,                // Жирный шрифт
+        FALSE,                  // Не курсив
+        FALSE,                  // Не подчёркнутый
+        FALSE,                  // Не зачёркнутый
+        DEFAULT_CHARSET,
+        OUT_DEFAULT_PRECIS,
+        CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY,
+        DEFAULT_PITCH | FF_SWISS,
+        TEXT("Arial")
+    );
+
+    HFONT hOldFont = (HFONT)SelectObject(hdc, hFont);
+
+    RECT textRect = {topX1, topY1, topX2, topY2};
+    DrawText(hdc, TEXT("ZONE 51"), -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+    
+    RECT winRect = {mainX1, mainY1, mainX2, mainY2};
+    DrawText(hdc, TEXT("YOU WIN!!!"), -1, &winRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+    
+    SelectObject(hdc, hOldFont);
+    DeleteObject(hFont);
+    
+    DeleteObject(background);
+    DeleteObject(circuit);
+    DeleteObject(whitePen);    
+}
+
+void LastWindow :: Hide() {
+    HBRUSH background = CreateSolidBrush(RGB(0,0,0));
+    HPEN circuit = CreatePen(PS_SOLID, 4, RGB(0,0,0));
+
+    SelectObject(hdc, background);
+    SelectObject(hdc, circuit);
+
+    int x1 = GetX() - width/2;
+    int y1 = GetY() - height/2;
+    int x2 = GetX() + width/2;
+    int y2 = GetY() + height/2;
+
+    Rectangle(hdc, x1, y1, x2, y2);
+
+    x1 = GetX() - width/2;
+    y1 = GetY() - height/2 - height/5;
+    x2 = GetX() + width/2;
+    y2 = GetY() - height/2;
+
+    Rectangle(hdc, x1, y1, x2, y2);
+
+    DeleteObject(background);
+    DeleteObject(circuit);
+}
+
+
 //-------------------[ A B C   O B J E C T ]--------------------//
 ABC_Object :: ABC_Object(int InitX, int InitY) : Point(InitX, InitY) {} 
 

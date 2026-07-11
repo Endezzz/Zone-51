@@ -11,12 +11,17 @@ using namespace std;
 
 void levels(LevelsWindow &window, NLO * nlo, NLO & nlo1) {
     while(!KEY_DOWN(VK_ESCAPE)) {
+        LastWindow final(950,600);
         if(KEY_DOWN('1') && window.GetState() >= 1)
             firstLevel(nlo, window, nlo1);
         if(KEY_DOWN('2') && window.GetState() >= 2)
             secondLevel(nlo, window, nlo1);
         if(KEY_DOWN('3') && window.GetState() >= 3)
             thirdLevel(nlo, window, nlo1);   
+        if(window.GetState() == 0) {
+            final.Show();
+            window.SetState(-1);
+        }
     }
 }
 
@@ -668,6 +673,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
     }
     shields.clear();
 
+    if(state == 0) window.SetState(0);
     nlo1.SetX(nlo->GetX());
     nlo1.SetY(nlo->GetY());
     nlo1.SetMoveable(true);

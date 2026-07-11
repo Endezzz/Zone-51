@@ -187,3 +187,11 @@ class ThirdLevelWindow : public SecondLevelWindow {
         void Show() override;
         void Hide() override;
 };
+
+class LastWindow : public Window {
+    public: 
+        LastWindow(int InitX, int InitY);
+        ~LastWindow();
+        void Show() override;
+        void Hide() override;
+};
