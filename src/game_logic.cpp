@@ -236,7 +236,7 @@ void secondLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
                 side = 890;
             }
             else {
-                side = 310;
+                side = 330;
             }
             meteors.push_back(new Meteor(random_number, side));
             meteors[meteors.size()-1]->SetDirection(random_number%2);
@@ -440,7 +440,7 @@ void thirdLevel(NLO * nlo, LevelsWindow &window, NLO & nlo1) {
                 side = 890;
             }
             else {
-                side = 310;
+                side = 330;
             }
             meteors.push_back(new Meteor(random_number, side));
             meteors[meteors.size()-1]->SetDirection(random_number%2);
@@ -698,7 +698,7 @@ void collision(NLO * nlo, vector <Rocket *> &rockets, vector <Charge *> &charges
     }
     for(int i = 0; i < meteors.size(); i++) {
         if(checkCollision(nlo, meteors[i])) {
-            nlo->SetHealth(nlo->GetHealth()-1);
+            nlo->SetHealth(nlo->GetHealth()-2);
             meteors[i]->Hide();
             delete meteors[i];
             meteors.erase(meteors.begin() + i);
