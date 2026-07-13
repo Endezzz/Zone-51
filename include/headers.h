@@ -19,7 +19,14 @@ class Point {
         void MoveTo(int NewX, int NewY);
 };
 
-class NLO : public Point {
+class INLO {
+    public:
+        virtual void DrawCabin() = 0;
+        virtual void DrawAlien() = 0;
+        virtual void DrawWindow() = 0;
+};
+
+class NLO : public Point, public INLO {
     protected:
         int height = 90;
         int width = 180;
@@ -42,9 +49,9 @@ class NLO : public Point {
         void Show() override;
         void Hide() override;
         void TurnOf();
-        virtual void DrawCabin();
-        virtual void DrawAlien();
-        virtual void DrawWindow();
+        void DrawCabin() override;
+        void DrawAlien() override;
+        void DrawWindow() override;
 };
 
 class YellowNLO : public NLO {
