@@ -49,9 +49,18 @@ class NLO : public Point, public INLO {
         void Show() override;
         void Hide() override;
         void TurnOf();
-        void DrawCabin() override;
-        void DrawAlien() override;
+        virtual void DrawCabin() = 0;
+        virtual void DrawAlien() = 0;
+        virtual void DrawWindow() = 0;
+};
+
+class GreenNLO : public NLO {
+    public:
+        GreenNLO(int InitX, int InitY);
+        ~GreenNLO();
         void DrawWindow() override;
+        void DrawAlien() override;
+        void DrawCabin() override; 
 };
 
 class YellowNLO : public NLO {
@@ -80,6 +89,8 @@ class ABC_Object : public Point {
     public:
         ABC_Object(int InitX, int InitY);
         ~ABC_Object();
+        virtual void Show() = 0;
+        virtual void Hide() = 0;
         int GetWidth();
         int GetHeight();
         void SetWidth(int NewWidth);

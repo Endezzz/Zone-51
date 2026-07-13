@@ -208,7 +208,13 @@ void NLO :: Hide() {
     DeleteObject(blackPen);
 }
 
-void NLO :: DrawWindow() {
+
+//---------------------[ G R E E N    N L O]-----------------------//
+GreenNLO :: GreenNLO(int InitX, int InitY) : NLO(InitX, InitY) {}
+
+GreenNLO :: ~GreenNLO() {}
+
+void GreenNLO :: DrawWindow() {
     int x1 = GetX() - width/4, y1 = GetY() - height/2;
     int x2 = GetX() + width/4, y2 = GetY() + height/10;
 
@@ -238,7 +244,7 @@ void NLO :: DrawWindow() {
     DeleteObject(greenPen);    
 }
 
-void NLO :: DrawCabin() {
+void GreenNLO :: DrawCabin() {
     int x1 = GetX() - width/2, y1 = GetY() - height/12;
     int x2 = GetX() + width/2, y2 = GetY() + height/2;
 
@@ -268,7 +274,7 @@ void NLO :: DrawCabin() {
     DeleteObject(greenPen);
 }
 
-void NLO :: DrawAlien() {
+void GreenNLO :: DrawAlien() {
     int x1 = GetX() - width/14, y1 = GetY() - height/3;
     int x2 = GetX() + width/14, y2 = GetY() - height/15;
 

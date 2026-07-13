@@ -29,7 +29,7 @@ int main() {
     LevelsWindow window(950,600);
     window.Show();
 
-    NLO nlo1(950, 600);
+    GreenNLO nlo1(950, 600);
     NLO * nlo = &nlo1;
     levels(window, nlo, nlo1);
     ReleaseDC(hwnd, hdc);
