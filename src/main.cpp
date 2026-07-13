@@ -1,3 +1,16 @@
+/**********************************************************************
+ *                           œ–¿ “» ¿                                 *
+ *--------------------------------------------------------------------*
+ * Project Type  : Win64 Console Application                          *
+ * Project Name  : Zone 51                                            *
+ * File Name     : main.cpp                                           *
+ * Programmer(s) : ﬂˆÂ‚ ≈.¬., Ã3Œ-209¡¬-24                           *
+ * Modifyed By   :                                                    *
+ * Created       : 25/06/2026                                         *
+ * Last Revision : 24/07/2026                                         *
+ * Comment(s)    :                                                    *
+ *********************************************************************/
+
 #include <windows.h>
 #include <iostream>
 #include "../include/headers.h"
