@@ -170,6 +170,8 @@ class Window : public Point {
     public:
         Window(int InitX, int InitY);
         ~Window();
+        virtual void Show() = 0;
+        virtual void  Hide() = 0;
         int GetState();
         void SetState(int NewState);
 };
